@@ -1,0 +1,6 @@
+[package]
+name = "average"
+version = "0.1.0"
+authors = ["schindlershadow <schindlershadow@gmail.com>"]
+
+[dependencies]
