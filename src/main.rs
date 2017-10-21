@@ -16,6 +16,9 @@ fn main() {
     let mean = vec_mean(&integers);
     println!("\nmean: {}", mean);
 
+    let median = vec_median(&integers);
+    println!("median: {}", median);
+
 }
 
 fn print_vec(vec: &Vec<i32>) {
@@ -33,4 +36,29 @@ fn vec_mean(vec: &Vec<i32>) -> f32 {
     }
 
     total / vec.len() as f32
+}
+
+fn vec_median(vec: &Vec<i32>) -> f32 {
+    let middle_index = (vec.len() / 2) as usize;
+    //println!("len {}", vec.len());
+    //if vector is even take the average of the middle 2 numbers
+    if vec.len() % 2 == 0 {
+        let lower_option: Option<&i32> = vec.get(middle_index);
+        let upper_option: Option<&i32> = vec.get(middle_index + 1);
+
+        //if vailed indexes
+        if let Some(lower) = lower_option {
+            if let Some(upper) = upper_option {
+                return ((lower + upper)  as f32) / 2.0;
+            }
+        }
+    } else {
+        //let middle_index = (vec.len() / 2) as i32;
+        let middle_option: Option<&i32> = vec.get(middle_index);
+
+        if let Some(middle) = middle_option {
+            return *middle as f32;
+        }
+    }
+    0.0
 }
