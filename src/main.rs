@@ -2,7 +2,7 @@ fn main() {
     println!("\nGiven a list of integers,\n use a vector and return the mean (average),\n median (when sorted, the value in the middle position),\n and mode (the value that occurs most often; a hash map will be helpful here) of the list\n");
 
     //list of integers
-    let mut integers = vec![1, 3, 2, 4, 5, 6, 7, 8, 9, 10];
+    let mut integers = vec![1, 3, 2, 4, 5, 6, 7, 8, 9, 10, 4, 4];
 
     println!("Input Vector");
     print_vec(&integers);
@@ -19,6 +19,8 @@ fn main() {
     let median = vec_median(&integers);
     println!("median: {}", median);
 
+    let mode = vec_mode(&integers);
+    println!("mode: {}", mode);
 }
 
 fn print_vec(vec: &Vec<i32>) {
@@ -29,6 +31,7 @@ fn print_vec(vec: &Vec<i32>) {
 }
 
 fn vec_mean(vec: &Vec<i32>) -> f32 {
+
     let mut total = 0.0;
     for element in vec.iter() {
         let float = *element as f32;
@@ -61,4 +64,25 @@ fn vec_median(vec: &Vec<i32>) -> f32 {
         }
     }
     0.0
+}
+
+fn vec_mode(vec: &Vec<i32>) -> i32 {
+    use std::collections::HashMap;
+
+    let mut map = HashMap::new();
+
+    for element in vec.iter() {
+        let count = map.entry(element).or_insert(0);
+        *count += 1;
+    }
+
+    let mut mode = 0;
+    for (key, val) in map.iter() {
+        if mode == 0 {
+            mode = **key;
+        } else if map[&mode] < *val {
+            mode = **key;
+        }
+    }
+     mode
 }
